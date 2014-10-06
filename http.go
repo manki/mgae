@@ -92,7 +92,7 @@ func (vh ValidatingHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 type PreprocessingHandler struct {
 	Preprocess func(w http.ResponseWriter, r *http.Request) *Error
-	Handler Handler
+	Handler    Handler
 }
 
 // Serves HTTP request r and writes the response to w.

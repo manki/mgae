@@ -11,7 +11,7 @@ const returnAllMatches = -1
 
 var (
 	variablePattern = regexp.MustCompile(`^%(.+)%$`)
-  emptyMap = map[string]string{}
+	emptyMap        = map[string]string{}
 )
 
 // Parses REST-style URL paths.

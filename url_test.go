@@ -32,7 +32,7 @@ func TestParsePath(t *testing.T) {
 	format := "/customer/%id%/%action%"
 	path := "/customer/44/edit"
 	expected := map[string]string{
-		"id": "44",
+		"id":     "44",
 		"action": "edit",
 	}
 	vars, err := ParsePath(format, urlForPath(path))
