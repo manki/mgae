@@ -10,7 +10,7 @@ import (
 const returnAllMatches = -1
 
 var (
-	variablePattern = regexp.MustCompile(`^%(.+)%$`)
+	variablePattern = regexp.MustCompile(`^%([^%]+)%$`)
 	emptyMap        = map[string]string{}
 )
 
@@ -20,6 +20,10 @@ var (
 // returns map
 //     {"id": "44", "action": "edit"}
 func ParsePath(format string, inputUrl *url.URL) (map[string]string, error) {
+	if strings.HasSuffix(inputUrl.Path, "/") && (!strings.HasSuffix(format, "/")) {
+		format += "/"
+	}
+
 	formatParts := strings.Split(format, "/")
 	pathParts := strings.Split(inputUrl.Path, "/")
 
