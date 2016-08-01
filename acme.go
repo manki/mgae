@@ -19,7 +19,7 @@ const (
 
 const (
 	entityName             = "AcmeSecret"
-	challengeUriPathLength = len(CHALLENGE_URI_PATH)
+	challengeUriPathLength = len(ACME_CHALLENGE_URI_PATH)
 )
 
 type AcmeSecret struct {
@@ -43,7 +43,7 @@ func SaveAcmeSecret(w http.ResponseWriter, r *http.Request) *Error {
 		UpdatedBy: u.Email,
 	}
 
-	key := datastore.NewKey(ctx, entityName, ENTITY_ID, 0, nil)
+	key := datastore.NewKey(ctx, entityName, ACME_CHALLENGE_ENTITY_ID, 0, nil)
 	_, err := datastore.Put(ctx, key, &secret)
 	if err != nil {
 		return NewError(err, "datastore.Put failed.", http.StatusInternalServerError)
@@ -59,7 +59,7 @@ func SaveAcmeSecret(w http.ResponseWriter, r *http.Request) *Error {
 func ServeAcmeSecret(w http.ResponseWriter, r *http.Request) *Error {
 	ctx := appengine.NewContext(r)
 
-	key := datastore.NewKey(ctx, entityName, ENTITY_ID, 0, nil)
+	key := datastore.NewKey(ctx, entityName, ACME_CHALLENGE_ENTITY_ID, 0, nil)
 	var secret AcmeSecret
 	err := datastore.Get(ctx, key, &secret)
 	if err != nil {
