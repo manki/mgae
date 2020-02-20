@@ -2,17 +2,14 @@
 // Heavily inspired by
 // http://blog.golang.org/2011/07/error-handling-and-go.html.
 
-// +build appengine
-
 package mgae
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 	"runtime"
 	"strings"
-
-	"appengine"
 )
 
 type Error struct {
@@ -56,8 +53,7 @@ func StackTrace() string {
 }
 
 func serveError(w http.ResponseWriter, r *http.Request, err *Error) {
-	c := appengine.NewContext(r)
-	c.Errorf("%s: %v\n%s", err.message, err.cause, err.stackTrace)
+	log.Printf("%s: %v\n%s", err.message, err.cause, err.stackTrace)
 	http.Error(w, err.message, err.responseCode)
 }
 
