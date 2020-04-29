@@ -19,6 +19,19 @@ type Error struct {
 	stackTrace   string
 }
 
+// Implementation of the standard error interface.
+func (e *Error) Error() string {
+	return fmt.Sprintf(
+		"Error{responseCode: %v, message: %q, cause: %v}",
+		e.responseCode, e.message, e.cause)
+}
+
+// Returns the underlying cause of this error, as documented in
+// https://golang.org/pkg/errors/.
+func (e *Error) Unwrap() error {
+	return e.cause
+}
+
 // Creates a new instance of Error.
 // cause - root cause of this error; can be nil.
 // message - error message.
